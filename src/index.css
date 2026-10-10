@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-color: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --border-color: #161616;
+    --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    position: relative;
+    overflow-x: hidden;
+    color: var(--text-primary);
+  }
+
+  /* Custom minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333333;
+  }
+}
+
+/* Container Standard matching reference */
+.site-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, 6vw, 6rem);
+  padding-right: clamp(1.5rem, 6vw, 6rem);
+}
+
+.font-sans-main {
+  font-family: var(--font-sans);
+}
+
+.font-mono-main {
+  font-family: var(--font-mono);
+}
+
+/* Subtle Animated Grain Overlay */
+.noise-overlay {
+  pointer-events: none;
+  z-index: 998;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  width: 200%;
+  height: 200%;
+  animation: 10s steps(10, end) infinite grain;
+  position: fixed;
+  inset: -50%;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-2%, -4%); }
+  20% { transform: translate(-6%, 2%); }
+  30% { transform: translate(2%, -6%); }
+  40% { transform: translate(-2%, 6%); }
+  50% { transform: translate(-4%, 2%); }
+  60% { transform: translate(2%, 6%); }
+  70% { transform: translate(6%, -4%); }
+  80% { transform: translate(-4%, 2%); }
+  90% { transform: translate(2%, -6%); }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.typebar {
+  margin-left: 4px;
+  font-weight: 300;
+  animation: 0.8s step-end infinite blink;
+  display: inline-block;
+}
+
+/* Marquee continuous scroll */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* Buttons System matching reference */
+.btn {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  border-radius: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 2.5rem;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+}
+
+.btn-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+  border: 1px solid var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary {
+  color: var(--text-primary);
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+}
+
+.btn-secondary .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s;
+  display: inline-block;
+}
+
+.btn-secondary:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Scroll reveal classes */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(35px);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle Cursor Glow matching reference */
+.cursor-glow {
+  pointer-events: none;
+  z-index: 999;
+  mix-blend-mode: screen;
+  will-change: transform;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  width: 450px;
+  height: 450px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
